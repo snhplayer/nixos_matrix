@@ -67,3 +67,30 @@ sudo nixos-rebuild switch
 
 ```
 
+### Полезные команды
+
+1. Создание пользователя
+```sh
+SECRET=$(awk -F'"' '/registration_shared_secret/ {print $2}' /etc/secrets/synapse-extra.yaml) && nix-shell -p matrix-synapse --run "register_new_matrix_user -k '$SECRET' http://localhost:8008"
+```
+
+2. Health check сервисов
+```sh
+systemctl is-active matrix-synapse nginx coturn docker-livekit docker-lk-jwt-service postgresql
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+```
+
+```sh
+curl -s https://matrix.shegloproject.ru/_matrix/client/versions | head -c 80
+curl -s https://matrix.shegloproject.ru/.well-known/matrix/client
+curl -s https://matrix.shegloproject.ru/livekit/jwt/healthz
+```
+
+3. Просмотр логов
+```sh
+journalctl -u nginx --no-pager -n 20
+journalctl -u matrix-synapse --no-pager -n 20
+journalctl -u docker-livekit --no-pager -n 20
+journalctl CONTAINER_NAME=livekit --no-pager -n 20 --since "5 min ago"
+docker logs livekit 2>&1 | tail -20
+```
