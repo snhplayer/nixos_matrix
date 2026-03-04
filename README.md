@@ -94,3 +94,16 @@ journalctl -u docker-livekit --no-pager -n 20
 journalctl CONTAINER_NAME=livekit --no-pager -n 20 --since "5 min ago"
 docker logs livekit 2>&1 | tail -20
 ```
+
+### Требуемые открытые порты
+### Требуемые открытые порты
+| Порт | Протокол | Назначение |
+|------|----------|------------|
+| 80 | TCP | ACME challenge |
+| 443 | TCP | HTTPS (Matrix, Element) |
+| 443 | UDP | LiveKit TURN |
+| 8448 | TCP | Matrix Federation |
+| 5349 | TCP | LiveKit TURN TLS |
+| 7881 | TCP | LiveKit RTC |
+| 7882 | UDP+UDP | LiveKit RTC |
+| 50100-50200 | UDP | LiveKit media |
