@@ -47,7 +47,7 @@ sed -i 's/for grubdev in \/dev\/vda \/dev\/sda \/dev\/xvda \/dev\/nvme0n1 ; do \
 sed -i 's/mv -v \$bootFs \$bootFs\.bak/umount -l $bootFs 2>\/dev\/null || true\n  mv -v $bootFs $bootFs.bak/' nixos-infect
 ```
 
-**Внимание:** Обязательно добавьте ваш публичный SSH-ключ в /root/.ssh/authorized_keys перед запуском — после установки у пользователя root не будет пароля.
+**Внимание:** Обязательно добавьте ваш публичный SSH-ключ в /root/.ssh/authorized_keys перед запуском -- после установки у пользователя root не будет доступа по паролю.
 
 4. PROVIDER=beget NO_SWAP=true ./nixos-infect
 
